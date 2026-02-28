@@ -18,7 +18,6 @@ return new class extends Migration
             $table->double('Pressure');
             $table->double('Humidity');
             $table->dateTime('Date');
-
             $table->primary(['ID']);
         });
     }

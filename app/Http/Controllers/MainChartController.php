@@ -52,7 +52,7 @@ class MainChartController extends Controller
         }
 
         $data = Mesurments::whereBetween('Date', [$startDate, $endDate])                        
-                ->orderBy('Date', 'asc')
+                ->orderBy('Date', 'desc')
                 ->get();
 
                 $labels = $data->pluck('Date')->map(function($date) {
@@ -62,10 +62,8 @@ class MainChartController extends Controller
                 $temp = $data->pluck('Temperature')->toArray();
                 $higr = $data->pluck('Pressure')->toArray();
                 $wet = $data->pluck('Humidity')->toArray();
-                $chunkSize = 14 * 24 * 60 * 60; 
 
 
-        $chunkStartIndex = 0;
         foreach ($data as $datum) {
             $baseTimestamp = Carbon::parse($datum['Date'])->timestamp * 1000;
             $baseTemperature = $datum['Temperature'];
@@ -102,6 +100,7 @@ class MainChartController extends Controller
             ->options([
                 'responsive' => true,
                 'parsing' => false,
+                'maintainAspectRatio' => false,
                 'scales' => [
                     'x' => [
                         'type' => 'time',  
@@ -138,6 +137,7 @@ class MainChartController extends Controller
             ->options([
                 'responsive' => true, 
                 'parsing' => false,
+                'maintainAspectRatio' => false,
                 'scales' => [
                     'x' => [
                         'type' => 'time',
@@ -178,6 +178,7 @@ class MainChartController extends Controller
             ->options([
                 'responsive' => true, 
                 'parsing' => false,
+                'maintainAspectRatio' => false,
                 'scales' => [
                     'x' => [
                         'type' => 'time',
