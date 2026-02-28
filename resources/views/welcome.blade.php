@@ -31,6 +31,7 @@
                 </div>
             </div>
         </div>
+        <!--
         <button class="carousel-control-prev" type="button" data-bs-target="#carouselIndicators" data-bs-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Previous</span>
@@ -39,6 +40,7 @@
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Next</span>
         </button>
+        -->
         <div class="carousel-indicators" style="position: static; display: flex; justify-content: center; margin: 8px 0 0 0;">
             <button type="button" data-bs-target="#carouselIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1" style="background-color: black;"></button>
             <button type="button" data-bs-target="#carouselIndicators" data-bs-slide-to="1" aria-label="Slide 2" style="background-color: black;"></button>
