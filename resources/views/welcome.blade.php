@@ -17,30 +17,20 @@
         <div class="carousel-inner">
             <div class="carousel-item active">
                 <div style="height: 500px;">
-                    {!! $chart1->render() !!}
+                    {!! $chartTemperature->render() !!}
                 </div>
             </div>
             <div class="carousel-item">
                 <div style="height: 500px;">
-                    {!! $chart2->render() !!}
+                    {!! $chartHumidity->render() !!}
                 </div>
             </div>
             <div class="carousel-item">
                 <div style="height: 500px;">
-                    {!! $chart3->render() !!}
+                    {!! $chartPressure->render() !!}
                 </div>
             </div>
         </div>
-        <!--
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselIndicators" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselIndicators" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-        </button>
-        -->
         <div class="carousel-indicators" style="position: static; display: flex; justify-content: center; margin: 8px 0 0 0;">
             <button type="button" data-bs-target="#carouselIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1" style="background-color: black;"></button>
             <button type="button" data-bs-target="#carouselIndicators" data-bs-slide-to="1" aria-label="Slide 2" style="background-color: black;"></button>

@@ -55,33 +55,29 @@ class MainChartController extends Controller
                 ->orderBy('Date', 'desc')
                 ->get();
 
-                $labels = $data->pluck('Date')->map(function($date) {
-                    return Carbon::parse($date)->timestamp * 1000;  
-                })->toArray();
-                
-                $temp = $data->pluck('Temperature')->toArray();
-                $higr = $data->pluck('Pressure')->toArray();
-                $wet = $data->pluck('Humidity')->toArray();
-
+        $labels = $data->pluck('Date')->map(function($date) {
+                return Carbon::parse($date)->timestamp * 1000;  
+            })->toArray();
 
         foreach ($data as $datum) {
             $baseTimestamp = Carbon::parse($datum['Date'])->timestamp * 1000;
             $baseTemperature = $datum['Temperature'];
             $baseHumidity = $datum['Humidity'];
             $basePressure = $datum['Pressure'];
-            $chartTemp[] = ['x' => $baseTimestamp, 'y' => $baseTemperature];
-            $chartHum[] = ['x' => $baseTimestamp, 'y' => $baseHumidity];
-            if($basePressure != 0)$chartPres[] = ['x' => $baseTimestamp, 'y' => $basePressure];
+            $chartDataTemp[] = ['x' => $baseTimestamp, 'y' => $baseTemperature];
+            $chartDataHum[] = ['x' => $baseTimestamp, 'y' => $baseHumidity];
+            if($basePressure != 0)$chartDataPres[] = ['x' => $baseTimestamp, 'y' => $basePressure];
         }
-        if(!isset($chartTemp))
+        
+        if(!isset($chartDataTemp))
         {
-            $chartTemp[] = null;
-            $chartHum[] = null;
-            $chartPres[] = null;
+            $chartDataTemp[] = null;
+            $chartDataHum[] = null;
+            $chartDataPres[] = null;
         }
         
 
-        $chart1 = Chartjs::build()
+        $chartTemperature = Chartjs::build()
             ->name('lineChartTest')
             ->type('line')
             ->size(['width' => 200, 'height' => 150])
@@ -94,7 +90,7 @@ class MainChartController extends Controller
                 "pointBackgroundColor" => "rgba(38, 185, 154, 0.7)",
                 "pointHoverBackgroundColor" => "#fff",
                 "pointHoverBorderColor" => "rgba(220,220,220,1)",
-                "data" => $chartTemp,  
+                "data" => $chartDataTemp,  
                 "fill" => false,
             ]])
             ->options([
@@ -118,7 +114,7 @@ class MainChartController extends Controller
             ]);
         
 
-        $chart2 = Chartjs::build()
+        $chartHumidity = Chartjs::build()
             ->name('a')
             ->type('line')
             ->size(['width' => 200, 'height' => 150])
@@ -131,7 +127,7 @@ class MainChartController extends Controller
                 "pointBackgroundColor" => "rgba(38, 185, 154, 0.7)",
                 "pointHoverBackgroundColor" => "#fff",
                 "pointHoverBorderColor" => "rgba(220,220,220,1)",
-                "data" => $chartHum,  
+                "data" => $chartDataHum,  
                 "fill" => false,
             ]])
             ->options([
@@ -159,7 +155,7 @@ class MainChartController extends Controller
             ]);
         
 
-        $chart3 = Chartjs::build()
+        $chartPressure = Chartjs::build()
             ->name('b')
             ->type('line')
             ->size(['width' => 200, 'height' => 150])
@@ -172,7 +168,7 @@ class MainChartController extends Controller
                 "pointBackgroundColor" => "rgba(38, 185, 154, 0.7)",
                 "pointHoverBackgroundColor" => "#fff",
                 "pointHoverBorderColor" => "rgba(220,220,220,1)",
-                "data" => $chartPres,  
+                "data" => $chartDataPres,  
                 "fill" => false,
             ]])
             ->options([
@@ -196,7 +192,7 @@ class MainChartController extends Controller
                 
             ]);
         
-        return view('welcome', compact('chart1', 'chart2', 'chart3', 'data', 'range', 'RANGES'));
+        return view('welcome', compact('chartTemperature', 'chartPressure', 'chartHumidity', 'data', 'range', 'RANGES'));
         
     }
 }
