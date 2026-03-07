@@ -14,13 +14,10 @@ class ApiController extends Controller
     public function decider(string $device)
     {
         $devices = Cache::get('esp_decider', []);
-
         if (!in_array($device, $devices)) {
         $devices[] = $device;
         }
-
         Cache::put('esp_decider', $devices);
-
     return 'OK';
     }
     
@@ -36,18 +33,14 @@ class ApiController extends Controller
     {
  
         $body = $request->getContent();
-
-
         $lines = explode("\n", trim($body));
-    
         $deviceId = $lines[0] ?? null;
-
         $devices = Cache::get('esp_decider', []);
+        
         if (($key = array_search($deviceId, $devices)) !== false) {
         unset($devices[$key]);
         Cache::put('esp_decider', array_values($devices));
         }
-
 
     $data = [
         'Device_ID'   => $lines[0] ?? null,
@@ -56,7 +49,6 @@ class ApiController extends Controller
         'Humidity'    => isset($lines[3]) ? floatval($lines[3]) : null,
         'Date'        => isset($lines[4]) ? date('Y-m-d H:i:s', intval($lines[4])) : null,
     ];
-
 
     Mesurments::create($data);
         
